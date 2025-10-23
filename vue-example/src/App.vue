@@ -34,16 +34,6 @@ const sortedOrganizations = computed(() => {
     let compareA = a[sortBy.value!];
     let compareB = b[sortBy.value!];
 
-    if (sortBy.value === "number") {
-      compareA = a[sortBy.value!].replace(/\D/g, "");
-      compareB = b[sortBy.value!].replace(/\D/g, "");
-    }
-
-    if (sortBy.value === "address") {
-      compareA = `${a[sortBy.value].city}${a[sortBy.value].street}${a[sortBy.value].build}`.toLowerCase();
-      compareB = `${b[sortBy.value].city}${b[sortBy.value].street}${b[sortBy.value].build}`.toLowerCase();
-    }
-
     if (compareA < compareB) return sortDir.value === "asc" ? -1 : 1;
     if (compareA > compareB) return sortDir.value === "asc" ? 1 : -1;
     return 0;
@@ -106,11 +96,11 @@ function resetForm() {
           ФИО директора
           <Arrow :sortBy="sortBy" :sortDir="sortDir" v-if="sortBy === 'ceo'" />
         </th>
-        <th @click="sortOrganization('number')">
+        <th>
           Номер телефона
           <Arrow :sortBy="sortBy" :sortDir="sortDir" v-if="sortBy === 'number'" />
         </th>
-        <th @click="sortOrganization('address')">
+        <th>
           Адрес
           <Arrow :sortBy="sortBy" :sortDir="sortDir" v-if="sortBy === 'address'" />
         </th>
