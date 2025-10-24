@@ -10,7 +10,6 @@ export default defineConfig({
     vue(),
     vueDevTools(),
   ],
-  base: '/talantix/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
