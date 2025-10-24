@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      td,
+      th {
+        padding: 8px;
+        border: 1px solid #ccc;
+      }
+
+      span[id="sort-name"],
+      span[id="sort-director"] {
+        cursor: pointer;
+      }
+
+      .overlay {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        align-items: center;
+        justify-content: center;
+        display: none;
+      }
+
+      .show {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal {
+        background: white;
+        padding: 16px;
+        width: 400px;
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .flex-column {
+        display: flex;
+        flex-direction: column;
+        row-gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      .add-form {
+        margin-bottom: 16px;
+      }
+
+      .toolbar {
+        display: flex;
+        column-gap: 12px;
+      }
+
+      .card {
+        margin: 16px 0;
+      }
+
+      .clickable,
+      button {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div class="toolbar">
+        <div class="search">
+          <input id="q" placeholder="Найти по ФИО..." />
+        </div>
+        <button id="add" class="btn">Добавить</button>
+      </div>
+
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>
+                <span id="sort-name" class="sortable">Название <span id="arrow-name" class="arrow"></span></span>
+              </th>
+              <th>
+                <span id="sort-director" class="sortable"
+                  >ФИО директора <span id="arrow-director" class="arrow"></span
+                ></span>
+              </th>
+              <th>Номер телефона</th>
+              <th>Адрес</th>
+              <th class="actions">Удалить</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+
+      <div id="pager" class="pagination">
+        <button id="prev-page">Предыдущая</button>
+        <span id="page-num"></span>
+        <button id="next-page">Следующая</button>
+      </div>
+    </div>
+
+    <!-- MODAL -->
+    <div id="overlay" class="overlay" role="dialog" aria-modal="true">
+      <div class="modal">
+        <header class="modal-header">
+          <strong id="modal-title"></strong>
+          <button id="close" class="close-x" aria-label="Закрыть">✕</button>
+        </header>
+
+        <form class="add-form" id="card-form">
+          <div class="flex-column">
+            <label>Название</label>
+            <input id="f-name" placeholder="ООО «Вектор»" />
+          </div>
+          <div class="flex-column">
+            <label>ФИО директора</label>
+            <input id="f-director" placeholder="Иванов И.И." />
+          </div>
+          <div class="flex-column">
+            <label>Номер телефона</label>
+            <input id="f-phone" placeholder="+7 000 123 45 67" />
+          </div>
+          <fieldset>
+            <legend>Адрес</legend>
+            <div class="flex-column">
+              <label>Город</label>
+              <input id="f-city" placeholder="Москва" />
+            </div>
+            <div class="flex-column">
+              <label>Улица</label>
+              <input id="f-street" placeholder="Ленина" />
+            </div>
+            <div class="flex-column">
+              <label>Дом</label>
+              <input id="f-build" placeholder="1" />
+            </div>
+          </fieldset>
+        </form>
+
+        <footer>
+          <button id="ok" class="btn" disabled>OK</button>
+        </footer>
+      </div>
+    </div>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
