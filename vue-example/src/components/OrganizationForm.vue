@@ -1,5 +1,6 @@
 <template>
   <form @submit="submitHandler" @input="validateForm">
+    <h2>{{ formLabel }}</h2>
     <div class="flex-column">
       <label for="organization-name">Название организации</label>
       <input type="text" v-model="organizationForm.name" />
@@ -72,8 +73,18 @@ const organizationForm = ref<FormOrganization>({
 });
 
 const isFormValid = computed(() => {
-  const checkList = [errors.value.name, errors.value.ceo, errors.value.number, errors.value.address?.city, errors.value.address?.street, errors.value.address?.build];
+  const checkList = [
+    errors.value.name,
+    errors.value.ceo,
+    errors.value.number,
+    errors.value.address?.city,
+    errors.value.address?.street,
+    errors.value.address?.build,
+  ];
   return checkList.every((e) => !e);
+});
+const formLabel = computed(() => {
+  return organizationForm.value.id !== null ? `Редактирование ${organizationForm.value.name}` : "Добавление организации";
 });
 
 function submitHandler(event: Event) {
@@ -111,7 +122,7 @@ function validateForm() {
 
 onMounted(() => {
   if (props.editableOrganization) {
-    organizationForm.value = structuredClone(toRaw(props.editableOrganization))
+    organizationForm.value = structuredClone(toRaw(props.editableOrganization));
   }
 
   validateForm();
