@@ -1,4 +1,4 @@
-# typescript-example
+# vue-example
 ---
 ## Требования
 
